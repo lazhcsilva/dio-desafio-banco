@@ -4,23 +4,24 @@ import com.dio.banco.interfaces.IConta;
 
 public abstract class Conta implements IConta {
 
-    private static final int AGENCIA_PADRAO = 1;
-    private static int SEQUENCIAL = 1;
-
     protected int agencia;
-    protected int conta;
-    protected double saldo;
+    protected int numero;
     protected Cliente cliente;
+    protected double saldo;
 
-    public Conta(Cliente cliente) {
-        this.agencia = Conta.AGENCIA_PADRAO;
-        this.conta = SEQUENCIAL++;
+    public Conta(int agencia, int conta, Cliente cliente) {
+        this.agencia = agencia;
+        this.numero = conta;
         this.cliente = cliente;
     }
 
     @Override
     public void sacar(double valor) {
-        saldo -= valor;
+        if (verificarSaldo(valor)) {
+            System.out.println("Saldo insuficiente");
+        } else {
+            saldo -= valor;
+        }
     }
 
     @Override
@@ -34,23 +35,37 @@ public abstract class Conta implements IConta {
         contaDestino.depositar(valor);
     }
 
-    protected void imprimirInfosComuns() {
-        System.out.println(String.format("Titular: %s", cliente.getNome()));
-        System.out.println(String.format("Agencia: %d", agencia));
-        System.out.println(String.format("Conta: %d", conta));
-        System.out.println(String.format("Saldo: %.2f", saldo));
+    @Override
+    public int getNumero() {
+        return numero;
     }
 
+    @Override
     public int getAgencia() {
         return agencia;
     }
 
-    public int getConta() {
-        return conta;
-    }
+    protected abstract boolean verificarSaldo(double valor);
 
+    @Override
     public double getSaldo() {
         return saldo;
     }
 
+    protected void imprimirInfosComuns() {
+        System.out.printf("Titular: %s%n", cliente.getNome());
+        System.out.printf("Agencia: %d%n", agencia);
+        System.out.printf("Conta: %d%n", numero);
+        System.out.printf("Saldo: R$%.2f%n", saldo);
+    }
+
+    @Override
+    public String toString() {
+        return "Conta{" +
+                "agencia=" + agencia +
+                ", conta=" + numero +
+                ", saldo=" + saldo +
+                ", cliente=" + cliente +
+                '}';
+    }
 }
