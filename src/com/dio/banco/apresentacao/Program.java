@@ -106,7 +106,8 @@ public class Program {
 //    }
 
     private static void verificarCliente() {
-        System.out.println("Deseja criar conta corrente ou poupança? (1 ou 2)");
+        System.out.println("Deseja criar conta corrente ou poupança?");
+        System.out.print("Digite 1 para corrente e 2 para poupança: ");
         int verificacao = SC.nextInt();
         if(verificacao == 1) {
             criarContaCorrente();
