@@ -99,12 +99,6 @@ public class Program {
         BANCO.sacarValor(conta, valor);
     }
 
-//    private static boolean validarDados() {
-//        System.out.print("Informe sua conta: ");
-//        int conta = SC.nextInt();
-//        return BANCO.validarConta(conta);
-//    }
-
     private static void verificarCliente() {
         System.out.println("Deseja criar conta corrente ou poupança?");
         System.out.print("Digite 1 para corrente e 2 para poupança: ");
